@@ -4,7 +4,9 @@ const CustomInput = ({ label, textInputConfig}) => {
     return (
         <View style={styles.container}>
             <Text>{label}</Text>
-            <TextInput style={styles.inputText} {...textInputConfig}
+            <TextInput
+                style={styles.inputText}
+                {...textInputConfig}
             />
         </View>
     );

@@ -4,12 +4,10 @@ import { GlobalStyles } from "../constants/styles";
 import { getFormattedDate } from '../utils/DateUtils';
 const ExpenseItem = ({ item }) => {
 
-    console.log("Exitems", item);
     
     const navigation = useNavigation();
     
     const expenseDetailHandler = () => {
-        console.log('expenseDetailHandler', item.id);
         navigation.navigate('ManageExpense', {
             expenseId: item.id
         })

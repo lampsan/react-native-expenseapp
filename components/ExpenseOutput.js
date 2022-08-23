@@ -4,8 +4,7 @@ import ExpenseList from "./ExpenseList";
 import ExpenseSummary from "./ExpenseSummary";
 
 const ExpenseOutput = ({ expenses }) => {
-    console.log('ExpenseOutput', expenses)
-    return (
+     return (
         <View style={styles.container}>
             <ExpenseSummary expenses={expenses} />
             <View style={{ marginVertical:20}}>

@@ -16,39 +16,28 @@ const ManageExpense = ({ route, navigation }) => {
     const selectedExpense = expensesCtx.expenses.find((expense) => expense.id === expenseId);
 
     const deleteExpenseHandler = () => {
-        console.log('deleteExpense')
-        expensesCtx.deleteExpense(expenseId);
+         expensesCtx.deleteExpense(expenseId);
         navigation.goBack();
     }
     const cancelHandler = () => {
-        console.log('cancelHandler')
         // expensesCtx.deleteExpense(expenseId);
         navigation.goBack();
     }
 
     const confirmHandler = (expenseData) => {
-        alert("hereree" + expenseId);
-        console.log("isExpenseEditAction ==", isExpenseEditAction);
-        if (isExpenseEditAction && expenseId) {
 
+       
+        console.log("isExpenseEditAction ==", isExpenseEditAction);
+        if (isExpenseEditAction) {
             expensesCtx.updateExpense(expenseId, expenseData);
         }
         else {
-
-            expensesCtx.addExpense(expenseData);
+             expensesCtx.addExpense(expenseData);
         }
         navigation.goBack();
 
     }
-    // useEffect(() => {
-       
-    //     console.log(selectedExpense);
-    //     setExpenseInfo(selectedExpense)   
-
-    //     if (isExpenseEditAction) {
-            
-    //     }
-    // },[])
+     
     useLayoutEffect(() => {
         navigation.setOptions({
             title: isExpenseEditAction ? 'Edit Expense' : 'Add Expense'

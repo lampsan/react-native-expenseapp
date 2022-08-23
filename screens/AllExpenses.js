@@ -26,8 +26,7 @@ const AllExpenses = ({ navigation }) => {
 
     }, [navigation]);
 
-    // console.log("expensesCtx.expenses", expensesCtx.ctxexpenses)
-    return (
+     return (
         <View style={styles.container}>
              <ExpenseOutput expenses={expenses} />
         </View>
