@@ -1,16 +1,54 @@
-import { useLayoutEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
+import { ExpensesContext } from "../store/expenses-context";
 import IconButton from "../theme/IconButton";
+import { getFormattedDate } from "../utils/DateUtils";
+import ExpenseForm from "./ExpenseForm";
 
 const ManageExpense = ({ route, navigation }) => {
+    const [expenseInfo, setExpenseInfo] = useState([]);
+    const expensesCtx = useContext(ExpensesContext);
+
     const expenseId = route.params?.expenseId;
     const isExpenseEditAction = !!expenseId;  //convert to o bool
-    console.log("isExpenseEditAction ==", isExpenseEditAction);
+   
+    const selectedExpense = expensesCtx.expenses.find((expense) => expense.id === expenseId);
 
     const deleteExpenseHandler = () => {
         console.log('deleteExpense')
+        expensesCtx.deleteExpense(expenseId);
+        navigation.goBack();
     }
+    const cancelHandler = () => {
+        console.log('cancelHandler')
+        // expensesCtx.deleteExpense(expenseId);
+        navigation.goBack();
+    }
+
+    const confirmHandler = (expenseData) => {
+        alert("hereree" + expenseId);
+        console.log("isExpenseEditAction ==", isExpenseEditAction);
+        if (isExpenseEditAction && expenseId) {
+
+            expensesCtx.updateExpense(expenseId, expenseData);
+        }
+        else {
+
+            expensesCtx.addExpense(expenseData);
+        }
+        navigation.goBack();
+
+    }
+    // useEffect(() => {
+       
+    //     console.log(selectedExpense);
+    //     setExpenseInfo(selectedExpense)   
+
+    //     if (isExpenseEditAction) {
+            
+    //     }
+    // },[])
     useLayoutEffect(() => {
         navigation.setOptions({
             title: isExpenseEditAction ? 'Edit Expense' : 'Add Expense'
@@ -19,7 +57,12 @@ const ManageExpense = ({ route, navigation }) => {
     
     return (
         <View style={styles.container}>
-            
+           
+            <ExpenseForm
+                expense={selectedExpense}
+                onSubmit={confirmHandler}
+                cancelHandler=  { cancelHandler}
+            />
             {isExpenseEditAction &&
                 (
                     <IconButton
@@ -30,6 +73,7 @@ const ManageExpense = ({ route, navigation }) => {
                     />
                 )
             }
+
         </View>
     );
 }
@@ -40,5 +84,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 16,
         backgroundColor: GlobalStyles.colors.tertiary
-    }
+    },
+    
 });
